@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8.4.7/swiper-bundle.min.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Lexend", sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+        }
+
+        img {
+            object-fit: cover;
+        }
+
+        body {
+            background-image: linear-gradient(135deg, rgb(99, 177, 255) 20%, rgb(219, 255, 244) 83%);
+            background-attachment: fixed;
+            background-size: cover;
+            width: 100%;
+            height: 100%;
+        }
+
+        nav {
+            padding: 0 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        nav a.logo {
+            font-size: 33px;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        nav .login a {
+            font-size: 20px;
+        }
+
+        nav .login button {
+            padding: 8px 14px;
+            border: none;
+            cursor: pointer;
+            background-color: transparent;
+        }
+
+        nav .login button.signup {
+            background-color: #000;
+            color: #fff;
+            border-radius: 4px;
+            margin-right: 14px;
+        }
+
+        header {
+            padding: 0 80px;
+            height: calc(100vh - 80px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header .left {
+            width: 700px;
+        }
+
+        header .left h1 {
+            margin-left: 3px;
+            font-size: 80px;
+            color: #ffffff;
+        }
+
+        header .left p {
+            font-size: 18.5px;
+            margin: 40px 0;
+            color: #777;
+        }
+
+        .tooltip-container {
+            margin: 70px 40px;
+            --background: linear-gradient(135deg, rgb(0, 255, 214) 0%, rgb(8, 226, 96) 100%);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--color);
+            padding: 0.7em 1.8em;
+            border-radius: 8px;
+            text-transform: uppercase;
+            height: 60px;
+            width: 180px;
+            display: grid;
+            place-items: center;
+            border: 2px solid var(--color);
+        }
+
+        .text {
+            background: #2e2c2c;
+            border-radius: 8px;
+            font-size: 24px;
+            color: #fff;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            place-items: center;
+            transform-origin: -100%;
+            transform: scale(1);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .tooltip-container span:last-child {
+            color: #fff;
+            background: linear-gradient(135deg, rgb(0, 255, 214) 0%, rgb(8, 226, 96) 100%);
+            font-size: 24px;
+            position: absolute;
+            top: 0%;
+            left: 100%;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            opacity: 1;
+            /* background-color: var(--background); */
+            z-index: -1;
+            border: 2px solid var(--background);
+            transform: scale(0);
+            transform-origin: 0;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            display: grid;
+            place-items: center;
+        }
+
+        .tooltip {
+            color: #fff;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.5em 0.6em;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            background: linear-gradient(135deg, rgb(255, 13, 0) 0%, rgb(226, 8, 142) 100%);
+            z-index: -1;
+            border-radius: 8px;
+            scale: 0;
+            transform-origin: 0 0;
+            text-transform: capitalize;
+            font-weight: 400;
+            font-size: 16px;
+            box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+        }
+
+        .tooltip::before {
+            position: absolute;
+            content: "";
+            height: 0.6em;
+            width: 0.6em;
+            bottom: -0.2em;
+            left: 50%;
+            transform: translate(-50%) rotate(45deg);
+            background: var(--background);
+        }
+
+        .tooltip-container:hover .tooltip {
+            top: -100%;
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            scale: 1;
+            animation: shake 0.5s ease-in-out both;
+        }
+
+        .tooltip-container:hover {
+            box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+            color: white;
+            border-color: transparent;
+        }
+
+        .tooltip-container:hover span:last-child {
+            transform: scale(1);
+            left: 0;
+        }
+
+        .tooltip-container:hover .text {
+            opacity: 0;
+            top: 0%;
+            left: 100%;
+            transform: scale(0);
+        }
+
+        @keyframes shake {
+            0% {
+                rotate: 0;
+            }
+
+            25% {
+                rotate: 7deg;
+            }
+
+            50% {
+                rotate: -7deg;
+            }
+
+            75% {
+                rotate: 1deg;
+            }
+
+            100% {
+                rotate: 0;
+            }
+        }
+
+
+        h2.separator {
+            margin-top: 10vh;
+            padding: 0 100px;
+            font-size: 40px;
+            color: #ffffff;
+
+        }
+
+        :root {
+            --first-color: hsl(141, 32%, 51%);
+            --first-color-light: hsl(206, 100%, 56%);
+            --first-color-alt: hsl(32, 85%, 69%);
+            --second-color: hsl(200, 100%, 50%);
+            --dark-color: hsl(0, 0%, 100%);
+            --white-color: hsl(212, 4%, 95%);
+            --body-color: hsl(0, 0%, 100%);
+            --container-color: hsl(0, 0%, 100%);
+        }
+
+        img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin: 0 0 50px;
+            gap: 30px;
+        }
+
+        .containerview {
+            display: flex;
+            justify-content: space-between;
+            margin: 0 0 50px;
+            gap: 30px;
+        }
+
+        .card__container {
+            padding: 1rem;
+
+        }
+
+        .card__content {
+            padding: 1.5rem;
+            margin-inline: 1.75rem;
+            border-radius: 1.25rem;
+            overflow: hidden;
+        }
+
+        .card__article {
+            display: block;
+            margin-top: 1.29vh;
+            width: 300px;
+            border-radius: 1.25rem;
+        }
+
+        .card__image {
+            position: relative;
+            background-color: var(--first-color-light);
+            padding-top: 1.5rem;
+            margin-bottom: -.75rem;
+        }
+
+        .card__article:hover img {
+            transform: translateY(-40px) scale(1.3);
+            z-index: 999;
+            transition: transform 0.3s ease;
+        }
+
+        .card__data {
+            background-color: var(--container-color);
+            padding: 1.5rem 2rem;
+            border-radius: 1rem;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+
+        .card__data h3,
+        .card__data p {
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .card__img {
+            width: 180px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 5;
+        }
+
+        .card__shadow {
+            width: 200px;
+            height: 200px;
+            background-color: var(--first-color-alt);
+            border-radius: 50%;
+            position: absolute;
+            top: 3.75rem;
+            left: 0;
+            right: 0;
+            margin-inline: auto;
+            filter: blur(45px);
+        }
+
+        .card__name {
+            margin-top: 10px;
+            font-size: 20px;
+            color: var(--second-color);
+            margin-bottom: .75rem;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .card__description {
+            font-size: 17.5px;
+            display: flex;
+            height: 100px;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .swiper-pagination-bullet {
+            background-color: hsl(182, 31%, 59%);
+            height: 20px;
+            width: 20px;
+            opacity: 1;
+        }
+
+        .swiper-pagination-bullet-active {
+            background-color: var(--second-color);
+        }
+
+        @media screen and (max-width: 320px) {
+            .card__data {
+                padding: 1rem;
+            }
+        }
+
+        @media screen and (min-width: 768px) {
+            .card__content {
+                margin-inline: 1rem;
+            }
+
+            .swiper-button-next,
+            .swiper-button-prev {
+                display: block;
+            }
+        }
+
+        @media screen and (min-width: 1300px) {
+            .card__container {
+                max-width: 1250px;
+            }
+
+        }
+
+
+        .card {
+            margin-bottom: 3rem;
+            padding: 5rem;
+            margin-top: -1rem;
+        }
+
+
+        .nft-shop .nft-listfri {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            /* grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr)); */
+            gap: 1.5rem;
+            justify-content: center;
+            align-items: flex-start;
+
+
+        }
+
+        .nft-shop .nft-listfri .nft-lists .item {
+            background-color: white;
+            padding: 1.8rem;
+            border-radius: 2rem;
+            box-shadow: var(--box-shadow);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.4rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            align-items: stretch;
+            position: relative;
+            padding: 1.8rem;
+            border: 2px solid #ffffff;
+            transition: 0.1s ease-out;
+            overflow: visible;
+
+        }
+
+        .nft-shop .nft-listfri .nft-lists .item .info button .card-button {
+            transform: translate(-50%, 125%);
+            width: 40%;
+            height: 3rem;
+            border-radius: 1rem;
+            border: none;
+            background: linear-gradient(-45deg, #eb36ff 0%, #4dcdff 100% );
+            box-shadow: 0 0 30px 5px rgba(255, 255, 255, 0.815);
+            color: #fff;
+            font-size: 1.3rem;
+            text-align: center;
+            padding: .6rem 1rem;
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            opacity: 0;
+            transition: 0.3s ease-out;
+
+        }
+
+        .nft-shop .nft-listfri .nft-lists .item:hover {
+            border: 4px solid #b5e6ff;
+            box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+        }
+
+        .nft-shop .nft-listfri .nft-lists .item:hover .info button .card-button {
+            transform: translate(-50%, 50%);
+            opacity: 1;
+        }
+
+
+        .nft-shop .nft-listfri .nft-lists .item img {
+            width: 100%;
+            height: 20rem;
+            object-fit: cover;
+            border-radius: 0.5rem;
+
+        }
+
+        .nft-shop .nft-listfri .nft-lists .item h5,
+        .nft-shop .nft-listfri .nft-lists .item h6,
+        .nft-shop .nft-listfri .nft-lists .item p {
+            margin-top: 2vh;
+            word-break: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .nft-shop .nft-listfri .nft-lists .item h5 {
+            font-size: 20px;
+        }
+
+        .nft-shop .nft-listfri .nft-lists .item h6 {
+            font-size: 16px;
+        }
+
+        .view-more {
+
+            margin: -80px 0 40px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .view-more button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            background: #dfdcdc;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .view-more button:hover {
+            color: #fff;
+            background: #0f2182;
+        }
+
+        .sellers {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+            padding: 50px 80px;
+            gap: 1.5rem;
+            justify-content: center;
+        }
+
+        .sellers .item {
+            background: #fff;
+            padding: 0.8rem;
+            border-radius: 1rem;
+            display: flex;
+            justify-content: baseline;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.5s ease;
+        }
+
+        .sellers .item:hover {
+            transform: translateY(-15px);
+        }
+
+        .sellers .item img {
+            width: 90px;
+            height: 5rem;
+            object-fit: cover;
+            border-radius: 0.5rem;
+        }
+
+        .sellers .item .info p {
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        footer {
+            background-color: #000;
+            color: #fff;
+            padding: 100px 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        footer h3 {
+            font-size: 48px;
+        }
+
+        footer .right {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 26px;
+        }
+
+        footer .right .links {
+            display: flex;
+            gap: 30px;
+        }
+
+        footer .right .links a {
+            color: #989898;
+            transition: color 0.3s ease;
+        }
+
+        footer .right .links a:hover {
+            color: #fff;
+        }
+
+        footer .right .social {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        footer .right .social i {
+            font-size: 30px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        footer .right .social i:hover {
+            color: #304ffe;
+        }
+
+        footer .right p {
+            font-size: 13px;
+            color: #777;
+        }
+
+        @media screen and (max-width: 1600px) {
+
+
+            .nft-shop .nft-listfri .nft-lists .item {
+                flex-basis: 40%;
+
+            }
+
+            .nft-shop .nft-listfri {
+                grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
+            }
+        }
+
+        @media screen and (max-width: 1400px) {
+
+            /* header,
+            h2.separatort,
+            .sell-nft,
+            .containerview,
+            .nft-shop,
+            .sellers {
+                padding: 0 40px;
+            } */
+
+            /* header .left h1 {
+                font-size: 60px;
+            }
+
+            header img {
+                width: 540px;
+            } */
+
+            footer {
+                padding: 100px 40px;
+            }
+
+            footer h3 {
+                font-size: 38px;
+            }
+
+        }
+
+        @media screen and (max-width: 1200px) {
+
+            header .left h1 {
+                font-size: 48px;
+            }
+
+            header img {
+                width: 480px;
+            }
+
+            h2.separator {
+                font-size: 34px;
+            }
+
+            footer .links a {
+                font-size: 15px;
+            }
+
+        }
+
+        @media screen and (max-width: 992px) {
+
+            nav a .logo {
+                font-size: 28px;
+            }
+
+            nav .links a {
+                font-size: 14px;
+            }
+
+            header {
+                flex-direction: column-reverse;
+                height: auto;
+                margin-bottom: 60px;
+            }
+
+            header .left {
+                width: 100%;
+            }
+
+            header img {
+                width: 100%;
+            }
+
+            footer {
+                flex-direction: column;
+                padding: 60px 40px;
+            }
+
+            footer h3 {
+                margin-bottom: 40px;
+                font-size: 32px;
+            }
+
+            footer .right {
+                width: 100%;
+                align-items: center;
+            }
+
+        }
+
+        @media screen and (max-width: 768px) {
+
+            nav,
+            header,
+            h2.separator {
+                padding: 0 20px;
+            }
+
+            nav a.logo {
+                font-size: 28px;
+            }
+
+            nav .links a {
+                font-size: 12px;
+            }
+
+            nav .login button {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+
+            header .left h1 {
+                font-size: 36px;
+            }
+
+            header .left p {
+                font-size: 14px;
+            }
+
+            header .left a {
+                padding: 6px;
+                width: 160px;
+                font-size: 14px;
+            }
+
+            header .left a i {
+                padding: 6px;
+            }
+
+            h2.separator {
+                font-size: 30px;
+            }
+
+            footer {
+                padding: 40px 20px;
+            }
+
+        }
+
+        @media screen and (max-width: 576px) {
+
+            header .left h1 {
+                font-size: 30px;
+            }
+
+        }
+    </style>
+    <title>Responsive NFT Website</title>
+</head>
+
+<body>
+
+    <nav>
+        <a href="/" class="logo">E-learning</a>
+        <div class="login">
+            <% if (!locals.user) {%>
+                <a class="nav-link" href="/users/newpage">ร่วมงาน</a>
+                <% }%>
+        </div>
+    </nav>
+
+    <header>
+        <div class="left">
+            <h1>Start exploring </h1>
+            <p>"Embrace the boundless realm of knowledge
+                its depths are as endless as the universe."
+            </p>
+            <a href="/users/register">
+                <div class="tooltip-container">
+                    <span class="tooltip">join us</span>
+                    <span class="text">Hello! 👋</span>
+                    <span>Sign up 🚀</span>
+                </div>
+            </a>
+        </div>
+        <img class="boy" src="/images/know.png">
+    </header>
+
+    <h2 class="separator">
+        Best Sellers
+    </h2>
+
+    <div class="sellers">
+        <div class="item">
+            <img src="/images/profile-1.png">
+            <div class="info">
+                <h4>Jhone D</h4>
+                <p>15.2K</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="/images/profile-2.png">
+            <div class="info">
+                <h4>Gregory B</h4>
+                <p>12.7K</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="/images/profile-3.png">
+            <div class="info">
+                <h4>Stephen E</h4>
+                <p>7.9K</p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="/images/profile-4.png">
+            <div class="info">
+                <h4>Russell M</h4>
+                <p>4.2K</p>
+            </div>
+        </div>
+
+    </div>
+
+    <h2 class="separator">
+        คอร์สเรียน
+    </h2>
+    <div class="nft-shop">
+        <% if (locals.user) { %>
+            <!-- แสดงเงื่อนไขของ locals.user -->
+            <div class="container">
+
+                <% if (!locals.classes) { %>
+                    <!-- หากไม่มีคลาส -->
+                    <p align="center">ไม่มีคลาสที่สามารถแสดงได้</p>
+                    <% } else { %>
+                        <!-- ถ้ามีคลาส -->
+                        <div class="nft-list">
+                            <% Object.values(classes).forEach(function(classed) { %>
+                                
+                                <div class="nft-list">
+                                    <div class="item">
+                                        <img src="<%= classed.img_url %>" class="card-img-top">
+                                        <div class="info">
+                                            <div>
+                                                <h5 class="card-title">เนื้อหา : <%= classed.title %>
+                                                </h5>
+                                                <h6 class="card-subtitle md-2 text-muted">อาจารย์ : <%=
+                                                        classed.instructor %>
+                                                </h6>
+                                                <p class="card-text">รายละเอียด : <%= classed.description %>
+                                                </p>
+                                                <div class="btc">
+                                                    <i class='bx bxl-bitcoin'></i>
+                                                    <p>0.29 BTC</p>
+                                                </div>
+                                            </div>
+                                            <p>5 of 33</p>
+                                        </div>
+                                        <div class="bid">
+                                            
+                                            <form class="" action="/students/classes/register" method="post">
+                                                <input type="text" name="student_username"
+                                                    value="<%= user.username %>">
+                                                <input type="hidden" name="class_id" value="<%= classed.class_id %>">
+                                                <input type="hidden" name="class_title" value="<%= classed.title %>">
+                                                <input type="hidden" name="img_url" value="<%= classed.img_url %>">
+                                                <input type="submit" class="btn btn-primary" value="เข้าเรียน">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }) %>
+                        </div>
+                        <% } %>
+            </div>
+            <% } else { %>
+                <!-- ถ้าไม่มี locals.user -->
+                <div class="card">
+                    <% if (locals.classes) { %>
+                        <div class="nft-listfri">
+                            <% Object.values(classes).forEach(function(classed) { %>
+                                <div class="nft-lists">
+                                    <div class="item">
+                                        <img src="<%= classed.img_url %>" class="card-img-top">
+                                        <div class="info">
+                                            <div>
+                                                <h5 class="card-title">เนื้อหา : <%= classed.title %>
+                                                </h5>
+                                                <h6 class="card-subtitle md-2 text-muted">อาจารย์ : <%=
+                                                        classed.instructor %>
+                                                </h6>
+                                                <p class="card-text">รายละเอียด : <%= classed.description %>
+                                                </p>
+
+                                            </div>
+                                            <button>
+                                                <a href="/users/register" class="card-button">สมัครสมาชิก</a>
+                                            </button>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                                <% }) %>
+                        </div>
+
+                        <% } %>
+                </div>
+                <% } %>
+
+    </div>
+
+    <script>
+        // เลือกข้อมูลเพียง 3 รายการแรก
+        const nftListItems = document.querySelectorAll('.nft-shop .nft-list .item');
+        for (let i = 0; i < nftListItems.length; i++) {
+            if (i >= 3) {
+                nftListItems[i].style.display = 'none';
+            }
+        }
+
+        const nftListFriItems = document.querySelectorAll('.nft-shop .nft-listfri .item');
+        for (let i = 0; i < nftListFriItems.length; i++) {
+            if (i >= 3) {
+                nftListFriItems[i].style.display = 'none';
+            }
+        }
+
+    </script>
+
+    <div class="view-more">
+        <button>View More</button>
+    </div>
+    <h2 class="separator">
+        review
+    </h2>
+
+    <section class="containerview">
+        <div class="card__container swiper">
+            <div class="card__content">
+                <div class="swiper-wrapper">
+                    <article class="card__article swiper-slide">
+
+                        <div class="card__image">
+                            <img src="/images/avatar-1.png" alt="image" class="card__img">
+                            <div class="card__shadow"></div>
+                        </div>
+
+                        <div class="card__data">
+                            <h3 class="card__name">Kell Dawx</h3>
+                            <p class="card__description">
+                                รู้สึกไม่ได้กดดันเลยในเวลาเรียน เรียนตอนไหนก็ได้ เราว่างตอนไหนก็เรียนได้
+                                และสามารถนำสิ่งที่เรียนมาไปใช้งานได้จริงครับ
+                            </p>
+                        </div>
+                    </article>
+
+                    <article class="card__article swiper-slide">
+                        <div class="card__image">
+                            <img src="/images/avatar-2.png" alt="image" class="card__img">
+                            <div class="card__shadow"></div>
+                        </div>
+
+                        <div class="card__data">
+                            <h3 class="card__name">Lotw Fox</h3>
+                            <p class="card__description">
+                                เนื้อหาที่เรียนกระชับ เข้าใจง่าย และนำไปใช้งานได้จริง เป็นการลงทุนที่คุ้มค่า
+                                ที่สุดไม่รู้สึกกดดันกับการเรียน
+                                เพราะเลือกเนื้อหากับเวลาเรียนได้ด้วยตัวเอง
+                            </p>
+
+                        </div>
+                    </article>
+
+                    <article class="card__article swiper-slide">
+                        <div class="card__image">
+                            <img src="/images/avatar-3.png" alt="image" class="card__img">
+                            <div class="card__shadow"></div>
+                        </div>
+
+                        <div class="card__data">
+                            <h3 class="card__name">Sara Mit</h3>
+                            <p class="card__description">
+                                เนื้อหาในการสอนดี สามารถนำความรู้ที่ได้ไปต่อยอดได้จริงและสามารถกลับมาเรียนซ้ำได้
+                                และยังมีการอัปเดตเนื้อหาใหม่ๆให้เราได้เรียนรู้อยู่ตลอด
+                            </p>
+
+                        </div>
+                    </article>
+
+                    <article class="card__article swiper-slide">
+                        <div class="card__image">
+                            <img src="/images/avatar-4.png" alt="image" class="card__img">
+                            <div class="card__shadow"></div>
+                        </div>
+
+                        <div class="card__data">
+                            <h3 class="card__name">Jenny Wert</h3>
+                            <p class="card__description">
+                                เนื้อหาที่จะเรียนสามารถเลือกได้ตามที่ตัวเองสนใจ
+                                และยังสามารถเลือกคนสอนตามที่เหมาะสมกับสไตล์ของตัวเองได้อีกด้วย
+                            </p>
+
+                        </div>
+                    </article>
+
+                    <article class="card__article swiper-slide">
+                        <div class="card__image">
+                            <img src="/images/avatar-5.png" alt="image" class="card__img">
+                            <div class="card__shadow"></div>
+                        </div>
+
+                        <div class="card__data">
+                            <h3 class="card__name">Lexa Kin</h3>
+                            <p class="card__description">
+                                ได้มาลองเรียนแล้วรู้สึกชอบ ทั้งระบบของเว็บไซต์ที่รวดเร็วและมีสีสันสวยงาม
+                                ทำให้มีความน่าสนใจอยากที่จะเข้ามาเรียน
+                                แถมเนื้อหายังสามารถนำไปประยุกต์ใช้ในชีวิตประจำวันได้อีกด้วย
+                            </p>
+
+                        </div>
+                    </article>
+                </div>
+            </div>
+            <!-- Navigation buttons -->
+            <div class="swiper-button-next">
+                <i class="fa-solid fa-caret-left"></i>
+            </div>
+
+            <div class="swiper-button-prev">
+                <i class="ri-arrow-left-s-line"></i>
+            </div>
+            <div class="swiper-pagination"></div>
+
+        </div>
+
+
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@8.4.7/swiper-bundle.min.js"></script>
+
+    <script>
+        let swiperCard = new Swiper(".card__content", {
+            loop: true,
+            spaceBetween: 32,
+            grabCursor: true,
+
+            pagination: {
+                el: ".swiper-pagination",
+                clickable: true,
+                dynamicBullets: true,
+            },
+
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+
+            breakpoints: {
+                600: {
+                    slidesPerView: 2,
+                },
+                968: {
+                    slidesPerView: 3,
+                },
+            },
+        });
+    </script>
+
+
+    <footer>
+        <h3>Create, Explore & Collect Abstract NFTs</h3>
+        <div class="right">
+            <div class="links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Cooperation</a>
+                <a href="#">Sponsorship</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <div class="social">
+                <i class='bx bxl-instagram'></i>
+                <i class='bx bxl-facebook-square'></i>
+                <i class='bx bxl-github'></i>
+            </div>
+            <p>Copyright © 2024 AsmrProg, All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>

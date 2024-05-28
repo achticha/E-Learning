@@ -1,0 +1,195 @@
+body{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style: none;
+    scroll-behavior: smooth;
+    background: #1D002C;
+}
+
+::-webkit-scrollbar{
+    height: .1rem;
+    width: .5rem;
+}
+::-webkit-scrollbar-track{
+    background: #67ccff;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #194eb9;
+    border-radius: 5rem;
+}
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 30px 90px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    
+}
+
+.logo {
+    color: #ffffff;
+    padding: 0 60px;
+    font-size: 60px;
+    font-weight: 600;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.45);
+}
+.navigation {
+    display: flex; /* กำหนดให้ลิงค์ภายในเรียงตัวแนวนอน */
+    align-items: center;
+}
+
+.navigation a {
+    color: #ffffff;
+    margin-left: 70px;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.45);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 20px;
+    padding: 6px 15px;
+    border: 3px solid #00a3b9;
+    border-radius: 30px;
+    transition: all .3s ease;
+}
+.navigation a:hover, .navbars a.active {
+    box-shadow: 0 0 1rem  #00a3b9 ;
+    background: #00a3b9;
+    color: rgb(255, 255, 255);
+}
+
+
+
+.parallax-home {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+
+}
+.parallax-home img{
+    position: absolute;
+    width: 100vw;
+    height: 103vh;
+    object-fit: cover;
+    pointer-events: none;
+}
+.text {
+    position: absolute;
+    font-size: 3.5rem;
+    font-weight: 600;
+    text-shadow: 2px 6px 1px rgba(0, 0, 0, 0.45);
+    color: #ffffff;
+    top: 20vw;
+    left: 93vh;
+}
+.moon {
+    mix-blend-mode: screen;
+    top: 3vw;
+    left: -19vh;
+}
+.rail {
+    top: 0.1vw;
+}
+.hin1 {
+    top: -vh;
+}
+.hin2 {
+    top: -vh;
+}
+.about {
+    justify-content: center;
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.about img {
+    position: absolute;
+    width: 100vw;
+    height: 103vh;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+.waterfall {
+    position: absolute;
+    top: 1vh;
+    left: 2%;
+    
+}
+
+.info-box {
+    color: #ffffff;
+    position: absolute;
+    top: 6vh;
+    left: 10%;
+    width: 63%;
+    z-index: 1003;
+    background: #1D002C;
+}
+
+.texts {
+    height: 9vh;
+    font-size: 2.9rem;
+    font-weight: 600;
+    text-shadow: 2px 6px 1px rgba(0, 0, 0, 0.45);
+    color: #ffffff;
+}
+
+.desertmoon {
+    top: 3vh;
+}
+
+.desertrock {
+    top: 10vh;
+    left: 6%;
+}
+
+.desertNoSky {
+    top: 10vh;
+    left: 6%;
+}
+
+.desertsky {
+    top: 13vh;
+    left: 6%;
+}
+
+.grass {
+    width: 100vw;
+}
+
+.waterII {
+    top: -9px;
+    width: 100%;
+}
+
+.navigation2 a {
+  
+    color: #ffffff;
+    text-shadow: 3px 3px 10px rgba(0, 0, 0, 0.45);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 20px;
+    padding: 6px 15px;
+    border: 3px solid #00a3b9;
+    border-radius: 30px;
+    transition: all .3s ease;
+}
+.navigation2 a:hover, .navbars a.btn {
+    box-shadow: 0 0 1rem  #00a3b9 ;
+    background: #00a3b9;
+    color: rgb(255, 255, 255);
+}
+.product {
+    position: relative;
+}

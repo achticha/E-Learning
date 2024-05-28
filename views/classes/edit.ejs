@@ -1,0 +1,19 @@
+<!-- edit_class.ejs -->
+<form action="/classes/<%= className._id %>/edit" method="POST">
+
+    <div>
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" value="<%= className.title %>">
+    </div>
+    <div>
+      <label for="description">Description:</label>
+      <textarea id="description" name="description"><%= className.description %></textarea>
+    </div>
+    <div>
+      <label for="img_url">Image URL:</label>
+      <input type="text" id="img_url" name="img_url" value="<%= className.img_url %>">
+    </div>
+    <!-- และอื่น ๆ ตามความต้องการ -->
+    <button type="submit">Update Class</button>
+  </form>
+  

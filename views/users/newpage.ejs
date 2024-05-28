@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@8.4.7/swiper-bundle.min.css" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Ubuntu', sans-serif;
+
+        }
+
+        a {
+            text-decoration: none;
+            color: #000;
+
+        }
+
+        img {
+            object-fit: cover;
+        }
+
+        body {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.5)100%, transparent 100%);
+            overflow-x: hidden;
+        }
+
+        .wave {
+            position: absolute;
+            height: 700px;
+        }
+
+        nav {
+            padding: 0 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        nav a.logo {
+            font-size: 33px;
+            color: #ffffff;
+            font-weight: 600;
+            z-index: 1000;
+        }
+
+        nav .links,
+        nav .login {
+            z-index: 1000;
+        }
+
+        nav .links a:not(:last-child) {
+            margin-right: 20px;
+
+        }
+
+        nav .login button {
+            padding: 8px 14px;
+            border: none;
+            cursor: pointer;
+            background-color: transparent;
+        }
+
+        nav .login button.signup {
+            background-color: #000;
+            color: #fff;
+            border-radius: 4px;
+            margin-right: 14px;
+        }
+
+        header {
+            padding: 0 80px;
+            height: calc(90vh - 60px);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        header .left {
+            z-index: 1000;
+        }
+
+        header .left h1 {
+            font-size: 43px;
+            color: #ffffff;
+            z-index: 1000;
+        }
+
+
+        header .boy {
+            width: 550px;
+            z-index: 1000;
+        }
+
+        .tooltip-container {
+            margin: 90px 39px;
+            --background: linear-gradient(135deg, rgb(0, 255, 214) 0%, rgb(8, 226, 96) 100%);
+            position: relative;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            font-weight: 600;
+            color: var(--color);
+            padding: 0.7em 1.8em;
+            border-radius: 8px;
+            text-transform: uppercase;
+            height: 60px;
+            width: 180px;
+            margin-right: 50px;
+            display: grid;
+            place-items: center;
+            border: 2px solid var(--color);
+        }
+
+        .text {
+            background: #2e2c2c;
+            border-radius: 8px;
+            font-size: 20px;
+            color: #fff;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: grid;
+            place-items: center;
+            transform-origin: -100%;
+            transform: scale(1);
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+
+        }
+
+        .tooltip-container span:last-child {
+            color: #fff;
+            background: linear-gradient(135deg, rgb(0, 255, 214) 0%, rgb(8, 226, 96) 100%);
+            font-size: 24px;
+            position: absolute;
+            top: 0%;
+            left: 100%;
+            width: 100%;
+            height: 100%;
+            border-radius: 8px;
+            opacity: 1;
+            /* background-color: var(--background); */
+            z-index: -1;
+            border: 2px solid var(--background);
+            transform: scale(0);
+            transform-origin: 0;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            display: grid;
+            place-items: center;
+        }
+
+        .tooltip {
+            color: #fff;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.5em 0.6em;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            background: linear-gradient(135deg, rgb(255, 13, 0) 0%, rgb(226, 8, 142) 100%);
+            z-index: -1;
+            border-radius: 8px;
+            scale: 0;
+            transform-origin: 0 0;
+            text-transform: capitalize;
+            font-weight: 400;
+            font-size: 16px;
+            box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+        }
+
+        .tooltip::before {
+            position: absolute;
+            content: "";
+            height: 0.6em;
+            width: 0.6em;
+            bottom: -0.2em;
+            left: 50%;
+            transform: translate(-50%) rotate(45deg);
+            background: var(--background);
+        }
+
+        .tooltip-container:hover .tooltip {
+            top: -100%;
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            scale: 1;
+            animation: shake 0.5s ease-in-out both;
+        }
+
+        .tooltip-container:hover {
+            box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+            color: white;
+            border-color: transparent;
+        }
+
+        .tooltip-container:hover span:last-child {
+            transform: scale(1);
+            left: 0;
+        }
+
+        .tooltip-container:hover .text {
+            opacity: 0;
+            top: 0%;
+            left: 100%;
+            transform: scale(0);
+        }
+
+        @keyframes shake {
+            0% {
+                rotate: 0;
+            }
+
+            25% {
+                rotate: 7deg;
+            }
+
+            50% {
+                rotate: -7deg;
+            }
+
+            75% {
+                rotate: 1deg;
+            }
+
+            100% {
+                rotate: 0;
+            }
+        }
+
+
+        .your-class-name {
+            margin-right: 45px;
+            color: #ff90a2;
+            font-size: 32px;
+            text-align: center;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            display: block;
+            margin-top: -100px;
+            font-weight: bold;
+            line-height: 1.4;
+        }
+
+        .sellers {
+
+            padding: 0 80px;
+            margin: 40px 0 80px;
+            display: flex;
+            gap: 30px;
+        }
+
+        .sellers .item {
+            text-align: center;
+            position: relative;
+            transition: all 2.25s;
+            padding: 5em;
+            transform-style: preserve-3d;
+            width: 25%;
+            gap: 14px;
+            padding: 20px;
+            border-radius: 20px;
+          
+        }
+
+        .sellers:hover .item {
+            transform: rotateY(0.5turn);
+        }
+
+        .sellers .item img {
+            width: 250px;
+            filter: drop-shadow(10px 5px 10px rgb(206, 255, 253));
+        }
+
+        .item .info {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            padding: 2em;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+            border-radius: 18px;
+        }
+
+        .info {
+            transform: rotateY(0.5turn);
+            
+        }
+
+        .item:nth-child(odd) .info {
+    background: linear-gradient(90deg,#6fb5ff,#55e7fc);
+}
+
+.item:nth-child(even) .info {
+    background: linear-gradient(90deg,#bdaeff,#ff89ca);
+}
+
+
+        .sellers .item .info p {
+            margin-top: 35px;
+            font-size: 18px;
+            color: #ffffff;
+            line-height: 1.4;
+            transform: translateZ(3rem);
+        }
+
+        footer {
+            background-color: #000;
+            color: #fff;
+            padding: 100px 80px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        footer h3 {
+            font-size: 48px;
+        }
+
+        footer .right {
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 26px;
+        }
+
+        footer .right .links {
+            display: flex;
+            gap: 30px;
+        }
+
+        footer .right .links a {
+            color: #989898;
+            transition: color 0.3s ease;
+        }
+
+        footer .right .links a:hover {
+            color: #fff;
+        }
+
+        footer .right .social {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        footer .right .social i {
+            font-size: 30px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        footer .right .social i:hover {
+            color: #304ffe;
+        }
+
+        footer .right p {
+            font-size: 13px;
+            color: #777;
+        }
+
+        @media screen and (max-width: 1400px) {
+
+            nav,
+            header,
+            h2.separatort,
+            .sellers {
+                padding: 0 40px;
+            }
+
+            header .left h1 {
+                font-size: 60px;
+            }
+
+            header img {
+                width: 540px;
+            }
+
+            footer {
+                padding: 100px 40px;
+            }
+
+            footer h3 {
+                font-size: 38px;
+            }
+
+        }
+
+        @media screen and (max-width: 1200px) {
+
+            header .left h1 {
+                font-size: 48px;
+            }
+
+            header img {
+                width: 480px;
+            }
+
+            .sellers {
+                flex-wrap: wrap;
+            }
+
+            .sellers .item {
+                width: 48%;
+            }
+
+            footer .links a {
+                font-size: 15px;
+            }
+
+        }
+
+        @media screen and (max-width: 992px) {
+
+            nav a.logo {
+                font-size: 28px;
+            }
+
+            nav .links a {
+                font-size: 14px;
+            }
+
+            header {
+                flex-direction: column-reverse;
+                height: auto;
+                margin-bottom: 60px;
+            }
+
+            header .left {
+                width: 100%;
+            }
+
+            header img {
+                width: 100%;
+            }
+
+            .sellers {
+                gap: 20px;
+            }
+
+            footer {
+                flex-direction: column;
+                padding: 60px 40px;
+            }
+
+            footer h3 {
+                margin-bottom: 40px;
+                font-size: 32px;
+            }
+
+            footer .right {
+                width: 100%;
+                align-items: center;
+            }
+
+        }
+
+        @media screen and (max-width: 768px) {
+
+            nav,
+            header,
+            .sellers {
+                padding: 0 20px;
+            }
+
+            nav a.logo {
+                display: none;
+            }
+
+            nav .links a {
+                font-size: 12px;
+            }
+
+            nav .login button {
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+
+            header .left h1 {
+                font-size: 36px;
+            }
+
+            header .left p {
+                font-size: 14px;
+            }
+
+            header .left a {
+                padding: 6px;
+                width: 160px;
+                font-size: 14px;
+            }
+
+            header .left a i {
+                padding: 6px;
+            }
+
+            footer {
+                padding: 40px 20px;
+            }
+
+        }
+
+        @media screen and (max-width: 576px) {
+
+            header .left h1 {
+                font-size: 30px;
+            }
+
+            .sellers .item {
+                width: 49%;
+            }
+        }
+
+     
+    </style>
+    <title>Responsive NFT Website</title>
+</head>
+
+
+
+
+
+<body>
+    <svg class="wave" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+        <path fill="rgb(113, 184, 255)" fill-opacity="9"
+            d="M0,128L40,144C80,160,160,192,240,186.7C320,181,400,139,480,144C560,149,640,203,720,208C800,213,880,171,960,181.3C1040,192,1120,256,1200,250.7C1280,245,1360,171,1400,133.3L1440,96L1440,0L1400,0C1360,0,1280,0,1200,0C1120,0,1040,0,960,0C880,0,800,0,720,0C640,0,560,0,480,0C400,0,320,0,240,0C160,0,80,0,40,0L0,0Z">
+        </path>
+    </svg>
+
+    <nav>
+        <a href="/" class="logo">E-learning</a>
+    </nav>
+
+    <header>
+        <img class="boy" src="/images/room1.png">
+        <div class="left">
+            <h1>ร่วมงานกับเรา </h1>
+            <a href="/users/register">
+                <div class="tooltip-container">
+                    <span class="tooltip">join us</span>
+                    <span class="text">Hello! 👋</span>
+                    <span>Sign up 🚀</span>
+                </div>
+            </a>
+        </div>
+        <img class="boy" src="/images/room.png">
+
+    </header>
+
+    <div class="your-class-name">
+        E-learning กำลังหาเพื่อนร่วมงาน
+        มาร่วมสร้างการเรียนรู้ เปิดประตูสู่อาชีพที่มีคุณภาพไปกับเรา
+    </div>
+
+    <div class="sellers">
+
+        <div class="item">
+            <img src="/images/store.png">
+            <div class="info">
+
+                <p>การสร้างการเรียนรู้ที่ไร้ขอบเขตและเป็นรูปแบบใหม่ที่ทุกคนสามารถเข้าถึงความรู้ได้อย่างเต็มที่
+                    โดยใช้เทคโนโลยีและการสร้างพื้นที่การเรียนรู้ที่เป็นกลาง </p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="/images/store2.png">
+            <div class="info">
+
+                <p>
+                    เพิ่มโอกาสทางอาชีพให้สังคม โดยส่งเสริมการทำงานที่สะดวกสบายและเข้าถึงได้ง่าย
+                    เพื่อใช้เวลาให้เกิดประโยชน์และมีประสิทธิภาพสูงที่สุด </p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="/images/store3.png">
+            <div class="info" >
+                <p>สร้างคอร์สออนไลน์เพียงครั้งเดียวสร้างรายได้ตลอดไปและยังสามารถสอนนักเรียนได้โดยไม่จำกัดจำนวน     </p>
+            </div>
+        </div>
+        <div class="item">
+            <img src="/images/store4.png">
+            <div class="info">
+                <p>สร้างคอร์สเรียนด้วยตนเองได้ง่าย
+                    พร้อมทั้งยังมีทีมงานคอยให้ความช่วยเหลือและสนับสนุนคุณ<br>ในทุกขั้นตอน
+                    ทั้งการสร้างและ<br>การขายคอร์สเรียนของคุณอย่างมืออาชีพ
+                </p>
+            </div>
+        </div>
+    </div>
+   
+
+    <footer>
+        <h3>Create, Explore & Collect Abstract NFTs</h3>
+        <div class="right">
+            <div class="links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Cooperation</a>
+                <a href="#">Sponsorship</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <div class="social">
+                <i class='bx bxl-instagram'></i>
+                <i class='bx bxl-facebook-square'></i>
+                <i class='bx bxl-github'></i>
+            </div>
+            <p>Copyright © 2024 AsmrProg, All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
